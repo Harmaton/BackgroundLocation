@@ -83,8 +83,6 @@ class MainActivity : ComponentActivity() {
                         SearchInputBox(modifier = Modifier.background(color = Color.Transparent), text = "Delivery Location")
                         Spacer(modifier = Modifier.height(5.dp))
 
-
-
                         Row(modifier = Modifier.fillMaxWidth()) {
                             Button(onClick = {
                                 Intent(applicationContext, LocationService::class.java).apply {

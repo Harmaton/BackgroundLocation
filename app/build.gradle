@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'com.google.devtools.ksp' version '1.7.20-1.0.8'
+    id  "kotlin-parcelize"
 }
 
 android {
@@ -44,6 +48,15 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+
+    applicationVariants.all {
+        kotlin.sourceSets {
+            getByName(name) {
+                kotlin.srcDir("build/generated/ksp/$name/kotlin")
+            }
+        }
+    }
+
 }
 
 dependencies {
@@ -67,5 +80,30 @@ dependencies {
     //splashscreen api
     implementation 'androidx.core:core-splashscreen:1.0.0'
 
+    //network
+    implementation'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+
+    //ramcosta navigation
+    implementation 'io.github.raamcosta.compose-destinations:core:1.5.9-beta'
+    ksp 'io.github.raamcosta.compose-destinations:ksp:1.5.9-beta'
+
+    //Gson Converter
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //dataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation "androidx.datastore:datastore:1.0.0"
+
+    //Viewmodel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
+
+    //hilt
+    implementation("com.google.dagger:hilt-android:2.42")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    kapt("com.google.dagger:hilt-android-compiler:2.42")
 
 }
